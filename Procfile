@@ -1,0 +1,1 @@
+web: gunicorn verifica_losa.wsgi --log-file - 
