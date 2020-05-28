@@ -9,10 +9,19 @@ def home(request):
 class listaArticoliView(ListView):
     model = Articolo
     template_name = 'news/articoli.html'
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["articoli"] = Articolo.objects.all()
         return context
+
+def listaArticoliGiornalistaView(request,pk):
+    giornalista=get_object_or_404(Giornalista, id=pk)
+    articoli=giornalista.articoli.all()
+    context = {'giornalista': giornalista,
+               'articoli': articoli,
+               }
+    return render(request, 'news/articoli.html', context)
 
 class listaGiornalistiView(ListView):
     model = Giornalista
